@@ -39,26 +39,10 @@ provider:
         - 's3:GetObject'
         - 's3:DeleteObject'
       Resource:
-        - arn:aws:dynamodb:eu-west-1:*:table/orders
         - arn:aws:dynamodb:eu-west-1:*:table/clients
-        - arn:aws:dynamodb:eu-west-1:*:table/cities
-        - arn:aws:dynamodb:eu-west-1:*:table/destinyTypes
-        - arn:aws:dynamodb:eu-west-1:*:table/subsidiaries
-        - arn:aws:dynamodb:eu-west-1:*:table/shipments
-        - arn:aws:dynamodb:eu-west-1:*:table/settings
-        - arn:aws:dynamodb:eu-west-1:*:table/clientQuotes
         - arn:aws:dynamodb:eu-west-1:*:table/guidesForPrinting
-        - arn:aws:dynamodb:eu-west-1:*:table/coverageMatrix
-        - 'arn:aws:dynamodb:eu-west-1:*:table/orders/index/*'
         - 'arn:aws:dynamodb:eu-west-1:*:table/clients/index/*'
-        - 'arn:aws:dynamodb:eu-west-1:*:table/cities/index/*'
-        - 'arn:aws:dynamodb:eu-west-1:*:table/destinyTypes/index/*'
-        - 'arn:aws:dynamodb:eu-west-1:*:table/subsidiaries/index/*'
-        - 'arn:aws:dynamodb:eu-west-1:*:table/shipments/index/*'
-        - 'arn:aws:dynamodb:eu-west-1:*:table/settings/index/*'
-        - 'arn:aws:dynamodb:eu-west-1:*:table/clientQuotes/index/*'
         - 'arn:aws:dynamodb:eu-west-1:*:table/guidesForPrinting/index/*'
-        - 'arn:aws:dynamodb:eu-west-1:*:table/coverageMatrix/index/*'
         - 'arn:aws:s3:::orion-services-bucket/*'
 
 resources:

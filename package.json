@@ -6,8 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start:offline": "serverless offline --skipCacheInvalidation",
-    "deploy:production": "serverless deploy",
+    "start": "serverless offline --skipCacheInvalidation",
+    "deploy": "serverless deploy",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
