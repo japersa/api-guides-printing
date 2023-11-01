@@ -17,15 +17,17 @@ provider:
   name: aws
   stage: dev
   region: eu-west-1
-  runtime: nodejs16.x
+  runtime: nodejs14.x
   memorySize: 512
-  timeout: 10
+  timeout: 29
   endpointType: REGIONAL
   environment:
     SHIPMENTS_FOR_PRINTING_TABLE: 'guidesForPrinting'
     INDEX_SHIPMENTS_FOR_PRINTING_CREATED_AT: 'createdAt-index'
     CLIENTS_TABLE_NAME: 'clients'
     BUCKET_S3_NAME: 'orion-services-bucket'
+    PATH_IMGS: './assets/imgs/'
+    PATH_TEMPLATES: './assets/templates/'
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
@@ -36,13 +38,33 @@ provider:
         - 'dynamodb:UpdateItem'
         - 'dynamodb:DeleteItem'
         - 's3:PutObject'
+        - 's3:PutObjectAcl'
+        - 's3:PutObjectAcl'
         - 's3:GetObject'
+        - "s3:GetObjectAcl"
         - 's3:DeleteObject'
+        - 's3:DeleteObjectAcl'
       Resource:
+        - arn:aws:dynamodb:eu-west-1:*:table/orders
         - arn:aws:dynamodb:eu-west-1:*:table/clients
+        - arn:aws:dynamodb:eu-west-1:*:table/cities
+        - arn:aws:dynamodb:eu-west-1:*:table/destinyTypes
+        - arn:aws:dynamodb:eu-west-1:*:table/subsidiaries
+        - arn:aws:dynamodb:eu-west-1:*:table/shipments
+        - arn:aws:dynamodb:eu-west-1:*:table/settings
+        - arn:aws:dynamodb:eu-west-1:*:table/clientQuotes
         - arn:aws:dynamodb:eu-west-1:*:table/guidesForPrinting
+        - arn:aws:dynamodb:eu-west-1:*:table/coverageMatrix
+        - 'arn:aws:dynamodb:eu-west-1:*:table/orders/index/*'
         - 'arn:aws:dynamodb:eu-west-1:*:table/clients/index/*'
+        - 'arn:aws:dynamodb:eu-west-1:*:table/cities/index/*'
+        - 'arn:aws:dynamodb:eu-west-1:*:table/destinyTypes/index/*'
+        - 'arn:aws:dynamodb:eu-west-1:*:table/subsidiaries/index/*'
+        - 'arn:aws:dynamodb:eu-west-1:*:table/shipments/index/*'
+        - 'arn:aws:dynamodb:eu-west-1:*:table/settings/index/*'
+        - 'arn:aws:dynamodb:eu-west-1:*:table/clientQuotes/index/*'
         - 'arn:aws:dynamodb:eu-west-1:*:table/guidesForPrinting/index/*'
+        - 'arn:aws:dynamodb:eu-west-1:*:table/coverageMatrix/index/*'
         - 'arn:aws:s3:::orion-services-bucket/*'
 
 resources:
@@ -97,6 +119,8 @@ outputs:
 functions:
   main:
     handler: src/main.handler
+    layers:
+      - 'arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:25'
     events:
       - http:
           method: ANY
