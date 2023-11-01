@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guía Digital</title>
+    <style>
+        .d-rel {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+        .img-bc {
+            position: absolute;
+            top: 18px;
+            left: 495px;
+            width: 250px;
+            height: 35px;
+        }
+        html{
+            zoom: 1.01;
+        }
+        hr {
+            border: 1px dashed #f3f3f3;
+            height: 0; 
+            width: 95%;
+            margin-top:15px
+        }
+    </style>
+</head>
+
+<body>
+    <% if (guias.length > 0) { %>
+        <% guias.forEach(guia => { %>
+                <% fondos.forEach(fondo => { %>
+                    <% 
+                    var totalValue = ( parseFloat(guia.valor_flete.replace('$','')) + parseFloat(guia.valor_a_recaudar.replace('$','')) ) 
+                    %>
+                <div class="d-rel">
+                    <img src="data:image/png;base64, <%= fondo %>" width="100%" height="325px" style="margin-top: 5px;margin-bottom: 5px;">
+                    <img src="data:image/png;base64, <%= guia.barcode %>" class="img-bc" />
+                    <!--Encabezaoo-->
+                    <span style="position: absolute; top: 64px; left: 290px; font-size: 9px; font-weight: bold;"><%= guia.fec_rec_dia %></span>
+                    <span style="position: absolute; top: 64px; left: 320px; font-size: 9px; font-weight: bold;"><%= guia.fec_rec_mes %></span>
+                    <span style="position: absolute; top: 64px; left: 340px; font-size: 9px; font-weight: bold;"><%= guia.fec_rec_ano %></span>
+                    <span style="position: absolute; top: 64px; left: 375px; font-size: 9px; font-weight: bold;"><%= guia.fec_rec_hora %></span>
+                    <span style="position: absolute; top: 60px; left: 405px; font-size: 9px; font-weight: bold;"><%= guia.ciudad_origen %></span>
+                    <span style="position: absolute; top: 70px; left: 405px; font-size: 9px; font-weight: bold;"><%= guia.dpto_origen %></span>
+                    <span style="position: absolute; top: 60px; left: 515px; font-size: 9px; font-weight: bold;"><%= guia.ciudad_destino %></span>
+                    <span style="position: absolute; top: 70px; left: 515px; font-size: 9px; font-weight: bold;"><%= guia.dpto_destino %></span>
+                    <!--Remitente-->
+                    <span style="position: absolute; top: 100px; left: 115px; font-size: 9px; font-weight: bold;width: 300px; height: auto;"><%= guia.remitente_nombre %> - <%= guia.bodega_origen %></span>
+                    <% if (guia.direccion_bodega) { %>
+                        <span style="position: absolute; top: 130px; left: 55px; font-size: 9px; font-weight: bold;width: 180px; height: auto;"><%= guia.direccion_bodega %></span>
+                    <% }else {%>
+                        <span style="position: absolute; top: 130px; left: 55px; font-size: 9px; font-weight: bold;width: 180px; height: auto;"><%= guia.remitente_direccion %></span>
+                    <% } %>                    
+                    <span style="position: absolute; top: 158px; left: 55px; font-size: 9px; font-weight: bold;"><%= guia.remitente_nit %></span>
+                    <% if (guia.tel_origen) { %>
+                        <span style="position: absolute; top: 158px; left: 210px; font-size: 9px; font-weight: bold;"><%= guia.tel_origen %></span>
+                    <% } else if(guia.cel_origen) { %>
+                        <span style="position: absolute; top: 158px; left: 210px; font-size: 9px; font-weight: bold;"><%= guia.cel_origen %></span>
+                    <% } else { %>
+                        <span style="position: absolute; top: 158px; left: 210px; font-size: 9px; font-weight: bold;"><%= guia.remitente_telefono %></span>
+                    <% } %>
+                    <!--Destinatario-->
+                    <span style="position: absolute; top: 100px; left: 410px; font-size: 9px; font-weight: bold;"><%= guia.destinatario_nombre %></span>
+                    <span style="position: absolute; top: 120px; left: 365px; font-size: 9px; font-weight: bold;width: 180px; height: auto;"><%= guia.destinatario_direccion %></span>
+                    <span style="position: absolute; top: 130px; left: 545px; font-size: 9px; font-weight: bold;"><%= guia.zonapostal %></span>
+                    <span style="position: absolute; top: 158px; left: 365px; font-size: 9px; font-weight: bold;"><%= guia.destinatario_nit %></span>
+                    <span style="position: absolute; top: 158px; left: 520px; font-size: 9px; font-weight: bold;"><%= guia.destinatario_tel %></span>
+                    <!--Bloque Centrar Alto Ancho Largo-->
+                    <span style="position: absolute; top: 190px; left: 30px; font-size: 9px; font-weight: bold;"><%= guia.largo %></span>
+                    <span style="position: absolute; top: 190px; left: 60px; font-size: 9px; font-weight: bold;"><%= guia.ancho %></span>
+                    <span style="position: absolute; top: 190px; left: 90px; font-size: 9px; font-weight: bold;"><%= guia.alto %></span>
+                    <span style="position: absolute; top: 190px; left: 140px; font-size: 9px; font-weight: bold;"><%= guia.peso %></span>
+                    <span style="position: absolute; top: 190px; left: 260px; font-size: 9px; font-weight: bold;"><%= guia.cantidad_piezas %></span>
+                    <span style="position: absolute; top: 190px; left: 290px; font-size: 9px; font-weight: bold;"><% if (guia.tipo_producto == 'sobre') { %>X<% } %></span>
+                    <span style="position: absolute; top: 190px; left: 320px; font-size: 9px; font-weight: bold;"><% if (guia.tipo_producto == 'caja') { %>X<% } %></span>
+                    <span style="position: absolute; top: 190px; left: 350px; font-size: 9px; font-weight: bold;"><% if (guia.tipo_producto == 'paquete') { %>X<% } %></span>
+                    <span style="position: absolute; top: 190px; left: 380px; font-size: 9px; font-weight: bold;"><% if (guia.tipo_producto == 'otro') { %>X<% } %></span>
+                    <span style="position: absolute; top: 190px; left: 420px; font-size: 7px; font-weight: bold;width: 60px;height: auto;"><%= guia.producto %></span>
+                    <!--Bloque Lateral Valores envio-->
+
+                    <span style="position: absolute; top: 116px; left: 665px; font-size: 12px; font-weight: bold;"><%= guia.valor_declarado %></span>                    
+                    <span style="position: absolute; top: 150px; left: 665px; font-size: 12px; font-weight: bold;"><% if (guia.valor_a_recaudar) { %><%= guia.valor_a_recaudar %><% } %></span>
+                    <span style="position: absolute; top: 186px; left: 665px; font-size: 12px; font-weight: bold;"><% if (guia.valor_flete) { %><%= guia.valor_flete %><% } %></span>
+                    <span style="position: absolute; top: 270px; left: 665px; font-size: 12px; font-weight: bold;"><% if (guia.valor_flete && guia.valor_a_recaudar) { %><%=  totalValue.toFixed(3) %><% } %></span>
+
+                    <span style="position: absolute; top: 300px; left: 264px; font-size: 9px;width: 180px; height: auto;">
+                        <% if (guia.nota) { %>
+                            <b>Nota :</b> <%= guia.nota %><br>
+                        <% } %>
+                        <% if (guia.comp_direccion) { %>
+                            <b>Complento:</b><%= guia.comp_direccion %><br>
+                        <% } %>
+                        <% if (guia.tipo_producto == 'otro') { %>
+                            <b>Factura :</b> <%= guia.factura %><br>
+                        <% } %>
+                        <% if (guia.aux1) { %>
+                            <b>Aux 1 :</b> <%= guia.aux1 %><br>
+                        <% } %>
+                        <% if (guia.aux2) { %>
+                            <b>Aux 2 :</b> <%= guia.aux2 %><br>
+                        <% } %>
+                        <% if (guia.aux5) { %>
+                            <span style="font-size: 9px;"><b>Serial :</b><%= guia.aux5 %></span><br>
+                        <% } %>
+                    </span>
+                    <span style="position: absolute; top: 300px; left: 442px; font-size: 9px;width: 180px; height: auto;">
+                        <% if (guia.factura) { %>
+                            <b>Factura :</b> <%= guia.factura %><br>
+                        <% } %>
+                        <% if (guia.area_o_correspondencia) { %>
+                            <b>Área o CC :</b> <%= guia.area_o_correspondencia %><br>
+                        <% } %>
+                        <% if (guia.numero_de_pedido) { %>
+                            <b>Numero de Pedido :</b> <%= guia.numero_de_pedido %><br>
+                        <% } %>
+                        <% if (guia.medio_recaudo) { %>
+                            <b>Medio de Recaudo :</b> <%= guia.medio_recaudo %><br>
+                        <% } %>
+                    </span>
+                </div>
+                <hr>
+            <%  }); %>
+        <%  }); %>
+    <% } %>
+</body>
+
+</html>
